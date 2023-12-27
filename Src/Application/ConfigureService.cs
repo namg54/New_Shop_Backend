@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Common.BehavioursPipe;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,11 @@ namespace Application
     {
         public static void AddApplicationServices(this IServiceCollection service)
         {
+            service.AddAutoMapper(Assembly.GetExecutingAssembly());
             service.AddMediatR(Assembly.GetExecutingAssembly());
+            service.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
+            service.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachedQueryBehaviours<,>));
+            
         }
     }
 }

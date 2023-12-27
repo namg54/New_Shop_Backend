@@ -1,4 +1,5 @@
 ﻿using Application.Contracts;
+using Application.Contracts.Specification;
 using Domain.Entities.Base;
 using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +60,20 @@ namespace Infrastructure.Persistence
         public async Task<bool> AnyAsync(CancellationToken cancellationToken)
         {
             return await _dbset.AnyAsync(cancellationToken);
+        }
+
+        public async Task<T> GetEntityWithSpec(ISpecification<T> spec, CancellationToken cancellationToken)
+        {
+            return await ApplySpecification(spec).FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<IReadOnlyList<T>> ListAsyncSpec(ISpecification<T> spec, CancellationToken cancellationToken)
+        {
+            return await ApplySpecification(spec).ToListAsync(cancellationToken);
+        }
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+        {
+            return Specificationevaluator<T>.GetQuery(_dbset.AsQueryable(), spec);
         }
     }
 }

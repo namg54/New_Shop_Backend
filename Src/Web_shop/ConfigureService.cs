@@ -15,7 +15,8 @@ namespace Web_shop
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddDistributedMemoryCache();
             return builder.Services;
         }
         public static async Task<IApplicationBuilder> AddWebappService(this WebApplication app)

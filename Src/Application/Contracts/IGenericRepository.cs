@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Base;
+﻿using Application.Contracts.Specification;
+using Domain.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,8 @@ namespace Application.Contracts
         void DeleteAsync(T entity, CancellationToken cancellationToken);
         Task<bool> AnyAsync(Expression<Func<T,bool>> expression,CancellationToken cancellationToken);
         Task<bool> AnyAsync(CancellationToken cancellationToken);
+        //ISpecification
+        Task<T> GetEntityWithSpec(ISpecification<T> spec, CancellationToken cancellationToken);
+        Task<IReadOnlyList<T>> ListAsyncSpec(ISpecification<T> spec, CancellationToken cancellationToken);
     }
 }

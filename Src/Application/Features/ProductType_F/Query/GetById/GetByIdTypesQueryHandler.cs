@@ -19,7 +19,7 @@ namespace Application.Features.ProductType_F.Query.GetById
 
         public async Task<ProductType> Handle(GetByIdTypesQuery request, CancellationToken cancellationToken)
         {
-            var spec = new ProductTypesSpec();
+            var spec = new ProductTypesSpec(request.Id);
             return await _uow.GenericRepository<ProductType>().GetEntityWithSpec(spec, cancellationToken);
             //var entity = await _uow.GenericRepository<ProductType>().GetByIdAsync(request.Id, cancellationToken);
             //if (entity == null) throw new Exception("Entity Is Null");

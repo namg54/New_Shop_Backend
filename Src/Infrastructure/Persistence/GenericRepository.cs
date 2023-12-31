@@ -43,9 +43,9 @@ namespace Infrastructure.Persistence
             _context.Entry(entity).State = EntityState.Modified;
             return Task.FromResult(entity);
         }
-        public async void DeleteAsync(T entity,CancellationToken cancellationToken)
+        public async void DeleteAsync(T entity, CancellationToken cancellationToken)
         {
-            var record = await GetByIdAsync(entity.Id,cancellationToken);
+            var record = await GetByIdAsync(entity.Id, cancellationToken);
             record.IsDelete = true;
             await UpdateAsync(record);
             //_context.Entry(entity).State = EntityState.Deleted;
@@ -54,7 +54,7 @@ namespace Infrastructure.Persistence
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression,
             CancellationToken cancellationToken)
         {
-           return await _dbset.AnyAsync(expression,cancellationToken);  
+            return await _dbset.AnyAsync(expression, cancellationToken);
         }
 
         public async Task<bool> AnyAsync(CancellationToken cancellationToken)
@@ -74,6 +74,11 @@ namespace Infrastructure.Persistence
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             return Specificationevaluator<T>.GetQuery(_dbset.AsQueryable(), spec);
+        }
+
+        public async Task<int> CountAsuncSpec(ISpecification<T> spec, CancellationToken cancellationToken)
+        {
+            return await ApplySpecification(spec).CountAsync(cancellationToken);
         }
     }
 }

@@ -2,8 +2,10 @@ using Application;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.SeedData;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Web_shop;
+using Web_shop.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

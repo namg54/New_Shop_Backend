@@ -1,8 +1,11 @@
-﻿using Infrastructure.Persistence.Context;
+﻿using Domain.Exceptions;
+using Infrastructure.Persistence.Context;
 using Infrastructure.Persistence.SeedData;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using Web_shop.Middleware;
 
 namespace Web_shop
 {
@@ -10,8 +13,11 @@ namespace Web_shop
     {
         public static IServiceCollection AddWebServiceCollection(this WebApplicationBuilder builder)
         {
+
             // Add services to the container.
             builder.Services.AddControllers();
+
+            ApiBehaviorOption(builder);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -19,8 +25,25 @@ namespace Web_shop
             builder.Services.AddDistributedMemoryCache();
             return builder.Services;
         }
+
+        private static void ApiBehaviorOption(WebApplicationBuilder builder)
+        {
+            builder.Services.Configure<ApiBehaviorOptions>(option =>
+            {
+                option.InvalidModelStateResponseFactory = actioncontext =>
+                {
+                    var errors = actioncontext.ModelState.Where(x => x.Value.Errors.Count > 0)
+                    .SelectMany(v => v.Value.Errors)
+                    .Select(c => c.ErrorMessage).ToList();
+                    return new BadRequestObjectResult(new ApiToReturn(400, errors.ToList()));
+                };
+
+            });
+        }
+
         public static async Task<IApplicationBuilder> AddWebappService(this WebApplication app)
         {
+            app.UseMiddleware<Middleware_ExceptionHandler>();
 
             //Create Scope
             var scope = app.Services.CreateScope();

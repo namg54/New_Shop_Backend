@@ -14,7 +14,7 @@ namespace Web_shop.Controllers
             return Ok(await Mediator.Send(new GetAllBrandQuery(), cancellationToken));
         }
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<ProductBrand>> GetByIdTypes(int id,CancellationToken cancellationToken)
+        public async Task<ActionResult<ProductBrand>> GetByIdBrands(int id,CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(new GetByIdBrandQuery() { Id = id }, cancellationToken));
         }

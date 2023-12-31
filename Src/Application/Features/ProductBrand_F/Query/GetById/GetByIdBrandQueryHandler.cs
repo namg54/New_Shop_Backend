@@ -1,4 +1,6 @@
 ﻿using Application.Contracts;
+using Application.Dtos.Products;
+using Application.Features.Product_F.Query;
 using Application.Features.ProductBrand_F.Query.GetAll;
 using Domain.Entities;
 using MediatR;
@@ -20,12 +22,9 @@ namespace Application.Features.ProductBrand_F.Query.GetById
 
         public async Task<ProductBrand> Handle(GetByIdBrandQuery request, CancellationToken cancellationToken)
         {
-            var spec = new ProductBrandSpec();
+            var spec = new ProductBrandSpec(request.Id);
             return await _uow.GenericRepository<ProductBrand>().GetEntityWithSpec(spec, cancellationToken);
-            //var entity= await _uow.GenericRepository<ProductBrand>().GetByIdAsync(request.Id, cancellationToken);
-            //if (entity == null) throw new Exception("Entity Is Null");
-            //return entity;
-            //return await _uow.GenericRepository<ProductBrand>().GetByIdAsync(request.Id, cancellationToken);
+
         }
     }
 }

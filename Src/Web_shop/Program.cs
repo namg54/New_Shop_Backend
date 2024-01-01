@@ -17,5 +17,4 @@ builder.AddWebServiceCollection();
 
 var app = builder.Build();
 //Access To Wwwroot
-app.UseStaticFiles();
 await app.AddWebappService().ConfigureAwait(false);

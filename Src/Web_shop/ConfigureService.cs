@@ -11,7 +11,7 @@ namespace Web_shop
 {
     public static class ConfigureService
     {
-        public static IServiceCollection AddWebServiceCollection(this WebApplicationBuilder builder)
+        public static IServiceCollection AddWebServiceCollection(this WebApplicationBuilder builder, IConfiguration configuration)
         {
 
             // Add services to the container.
@@ -21,6 +21,16 @@ namespace Web_shop
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", Policy =>
+                {
+                    Policy
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithOrigins(configuration["CorsAddress:AddressHttp"], configuration["CorsAddress:AddressHttps"]);
+                });
+            });
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddDistributedMemoryCache();
             return builder.Services;
@@ -69,6 +79,9 @@ namespace Web_shop
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 

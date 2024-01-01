@@ -18,5 +18,6 @@ namespace Application.Features.Product_F.Query.GetAll
         public int? TypeId { get; set; }
         //TODO
         public int HoursSaveData => 48;//save cache data
+        //test
     }
 }

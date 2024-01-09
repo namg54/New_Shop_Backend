@@ -19,7 +19,6 @@
     <Folder Include="Features\ProductType_F\Validators\" />
     <Folder Include="Features\Product_F\Command\" />
     <Folder Include="Features\Product_F\Validators\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>

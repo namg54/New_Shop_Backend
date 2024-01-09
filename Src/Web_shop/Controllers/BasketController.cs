@@ -9,7 +9,7 @@ namespace Web_shop.Controllers
 {
     public class BasketController : BaseApiController
     {
-        [HttpGet("{basketId:string}")]
+        [HttpGet("{basketId}")]
         public async Task<ActionResult<CustomerBasket>> GetBasketById([FromRoute] string basketId,CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(new GetBasketByIdQuery(basketId),cancellationToken));
@@ -20,7 +20,7 @@ namespace Web_shop.Controllers
             return Ok(await Mediator.Send(new UpdateBasketCommand(basket),cancellationToken));
         }
 
-        [HttpDelete("basketId:int")]
+        [HttpDelete("{basketId}")]
         public async Task<ActionResult<bool>> DeleteBasket([FromRoute] string basketId,CancellationToken cancellationToken)
         {
             return Ok(await Mediator.Send(new DeleteBasketCommand(basketId),cancellationToken));

@@ -12,9 +12,9 @@ namespace Application.Features.Basket.Command.UpdateBasket
     {
         public UpdateBasketCommand(CustomerBasket CustomerBasket)
         {
-            CustomerBasket = customerBasket;
+            _customerBasket = CustomerBasket;
         }
-        public CustomerBasket customerBasket { get; set; }
+        public CustomerBasket _customerBasket { get; set; }
 
     }
 }

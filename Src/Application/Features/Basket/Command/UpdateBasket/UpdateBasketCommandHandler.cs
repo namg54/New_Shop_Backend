@@ -20,7 +20,7 @@ namespace Application.Features.Basket.Command.UpdateBasket
 
         public async Task<CustomerBasket> Handle(UpdateBasketCommand request, CancellationToken cancellationToken)
         {
-            return await _basket.UpdateBasketAsync(request.customerBasket);
+            return await _basket.UpdateBasketAsync(request._customerBasket);
         }
     }
 }

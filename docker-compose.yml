@@ -1,8 +1,13 @@
 version: '3.4'
 
 services:
-  web_shop:
-    image: ${DOCKER_REGISTRY-}webshop
-    build:
-      context: .
-      dockerfile: Src/Web_shop/Dockerfile
+  basketdb:
+    image: redis:latest
+    volumes:
+      - redis-data:/path/in/container
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+
+volumes:
+  redis-data:

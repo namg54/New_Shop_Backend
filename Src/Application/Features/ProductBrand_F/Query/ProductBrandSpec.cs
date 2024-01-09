@@ -1,5 +1,7 @@
 ﻿using Application.Contracts.Specification;
-using Domain.Entities;
+using Application.Features.Product_F.Query.GetAll;
+using Application.Features.ProductBrand_F.Query.GetAll;
+using Domain.Entities.ProductEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,10 @@ namespace Application.Features.ProductBrand_F.Query
 {
     public class ProductBrandSpec : BaseSpecification<ProductBrand>
     {
-        public ProductBrandSpec() { }
+        public ProductBrandSpec() { IsPagingEnable = false; }
         public ProductBrandSpec(int id) : base(x => x.Id == id)
         {
-
+            IsPagingEnable = false;
         }
     }
 }

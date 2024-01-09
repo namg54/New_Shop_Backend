@@ -1,6 +1,6 @@
 ﻿using Application.Features.ProductBrand_F.Query.GetAll;
 using Application.Features.ProductBrand_F.Query.GetById;
-using Domain.Entities;
+using Domain.Entities.ProductEntity;
 using Microsoft.AspNetCore.Mvc;
 using Web_shop.Common;
 

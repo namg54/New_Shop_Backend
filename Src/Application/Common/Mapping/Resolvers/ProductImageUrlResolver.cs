@@ -1,7 +1,7 @@
 ﻿using Application.Dtos.Products;
 using AutoMapper;
 using AutoMapper.Execution;
-using Domain.Entities;
+using Domain.Entities.ProductEntity;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Configurations
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.AddWebServiceCollection();
+builder.AddWebServiceCollection(builder.Configuration);
 
 var app = builder.Build();
 //Access To Wwwroot

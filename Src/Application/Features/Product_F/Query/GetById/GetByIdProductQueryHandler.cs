@@ -2,7 +2,7 @@
 using Application.Dtos.Products;
 using Application.Features.Product_F.Query.GetAll;
 using AutoMapper;
-using Domain.Entities;
+using Domain.Entities.ProductEntity;
 using MediatR;
 using System;
 using System.Collections.Generic;

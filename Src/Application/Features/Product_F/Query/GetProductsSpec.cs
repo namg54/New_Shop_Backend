@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Specification;
 using Application.Features.Product_F.Query.GetAll;
 using Application.Wrappers;
-using Domain.Entities;
+using Domain.Entities.ProductEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +21,15 @@ namespace Application.Features.Product_F.Query
                 switch (specParams.Sort)
                 {
                     case 1:
-                        AddOrderByDesc(x => x.Title);
+                        AddOrderByDesc(x => x.Price);
                         break;
                     case 2:
-                        AddOrderByDesc(x => x.LastModified);
+                        AddOrderByDesc(x => x.Title);
                         break;
                     case 3:
+                        AddOrderByDesc(x => x.productBrand.Title);
+                        break;
+                    case 4:
                         AddOrderByDesc(x => x.productType.Title);
                         break;
                     default:
@@ -39,12 +42,15 @@ namespace Application.Features.Product_F.Query
                 switch (specParams.Sort)
                 {
                     case 1:
-                        AddOrderBy(x => x.Title);
+                        AddOrderBy(x => x.Price);
                         break;
                     case 2:
-                        AddOrderBy(x => x.LastModified);
+                        AddOrderBy(x => x.Title);
                         break;
-                    case 3:
+                        case 3:
+                        AddOrderBy(x => x.productBrand.Title);
+                        break;
+                    case 4:
                         AddOrderBy(x => x.productType.Title);
                         break;
                     default:
@@ -58,6 +64,8 @@ namespace Application.Features.Product_F.Query
         public GetProductsSpec(int id) : base(x => x.Id == id)
         {
             AddInclude();
+            IsPagingEnable = false;
+
         }
         private void AddInclude()
         {
